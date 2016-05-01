@@ -1,3 +1,8 @@
+# LeetCode 109
+# Convert Sorted List to Binary Search Tree
+
+# Convert linked list to array, then use recursion.
+
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, x):
@@ -31,4 +36,3 @@ class Solution(object):
         root.left = self.sortedArrayToBST(array[:mid])
         root.right = self.sortedArrayToBST(array[mid + 1:])
         return root
-        
