@@ -1,4 +1,3 @@
-# LeetCode 136
 # Single Number
 
 class Solution:
@@ -9,4 +8,3 @@ class Solution:
         for i in nums:
             value ^= i
         return value
-

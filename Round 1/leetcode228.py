@@ -1,4 +1,3 @@
-# LeetCode 228
 # Summary Ranges
 
 class Solution:

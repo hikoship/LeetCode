@@ -1,4 +1,3 @@
-# LeetCode 260
 # Single Number III
 
 # 把题目拆成两个 single I 来做，分组。分组原则是两个结果不在同一组中，所以判断他们第一个不同的位在哪里。根据这个位上的数值来分组。
@@ -31,4 +30,3 @@ class Solution(object):
             else:
                 y ^= num
         return [x, y]
-            

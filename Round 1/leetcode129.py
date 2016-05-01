@@ -1,4 +1,3 @@
-# LeetCode 129
 # Sum Root to Leaf Numbers
 
 # 可循环（DFS）可迭代（BFS）记录之前各层的信息，如果该节点是叶子就保存计算值。

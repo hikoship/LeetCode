@@ -1,4 +1,3 @@
-// LeetCode 345
 // Reverse Vowels of a String
 //
 // 同 344，Python 暂未找到不超时的方法

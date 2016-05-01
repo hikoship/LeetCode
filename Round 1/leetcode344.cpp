@@ -1,4 +1,3 @@
-// LeetCode 344
 // Reverse String
 
 // C++ 可以在原位修改字符串，Python 不可以。注意 s[::-1] 的实现

@@ -1,4 +1,3 @@
-# LeetCode 109
 # Convert Sorted List to Binary Search Tree
 
 # Convert linked list to array, then use recursion.

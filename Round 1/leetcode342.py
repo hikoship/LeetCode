@@ -1,4 +1,3 @@
-# Leetcode 342
 # Power of Four
 
 # 利用4的乘方的二进制特点。In Python the precedence of bitwise operators are higher than boolean operators, but lower than addition and subtraction. not > and > xor > or.

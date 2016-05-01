@@ -1,4 +1,3 @@
-# LeetCode 237
 # Delete Node in a Linked List
 
 # Definition for singly-linked list.
@@ -14,4 +13,3 @@ class Solution:
         node.val = node.next.val
         node.next = node.next.next
         return
-        

@@ -1,4 +1,3 @@
-# LeetCode 343
 # Integer Break
 
 # 因子是3乘积最大

@@ -1,4 +1,3 @@
-# LeetCode 104
 # Maximum Depth of Binary Tree
 
 # Definition for a binary tree node.

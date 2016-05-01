@@ -1,4 +1,3 @@
-# LeetCode 334
 # Increasing Triplet Subsequence
 
 # 我的思路：假设序列为 abc，则记录潜在的 ab 对。扫到的第 i 个数如果比 ab 大，返回真。如果比 a 大比 b 小，更新 ab 为 ai。如果比 a 小，更新 ab 为 ib。

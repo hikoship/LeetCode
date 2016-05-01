@@ -1,4 +1,3 @@
-# LeetCode 162
 # Find Peak Element
 
 # 用对数方法解决。如果中间数比某一边的数小，那么一定有 peak 存在于这边。

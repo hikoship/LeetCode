@@ -1,4 +1,3 @@
-# LeetCode #66
 # Plus One
 
 class Solution:

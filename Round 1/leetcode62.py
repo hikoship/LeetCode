@@ -1,4 +1,3 @@
-# LeetCode 62
 # Unique Paths
 
 # DP method

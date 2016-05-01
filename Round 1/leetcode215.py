@@ -1,4 +1,3 @@
-# LeetCode 215
 # Kth Largest Element in an Array
 
 # 直接快排

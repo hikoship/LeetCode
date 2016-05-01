@@ -1,4 +1,3 @@
-# LeetCode 242
 # Valid Anagram
 
 class Solution:

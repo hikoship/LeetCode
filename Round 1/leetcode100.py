@@ -1,4 +1,3 @@
-# LeedCode 100
 # Same Tree
 
 # Definition for a binary tree node.
@@ -18,6 +17,5 @@ class Solution:
         elif p is not None and q is not None:
             if p.val == q.val:
                 return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-                
+
         return False
-        

@@ -1,4 +1,3 @@
-# LeetCode 122
 # Best Time to Buy and Sell Stock II
 
 class Solution:
@@ -11,4 +10,3 @@ class Solution:
             if diff > 0:
                 profit += diff
         return profit
-            
