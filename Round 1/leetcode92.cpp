@@ -1,6 +1,6 @@
 // Reverse Linked List II
 
-/   /
+// Use two static pointers and three dynamic pointers
 
 // Reverse a linked list from position m to n. Do it in-place and in one-pass.
 //
