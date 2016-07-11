@@ -1,6 +1,6 @@
 // Linked List Cycle
 
-// change value or use two pointers
+// change value or use two pointers (the "two pointers" tag reminds me of a faster pointer and a slower one.)
 
 // Given a linked list, determine if it has a cycle in it.
 //

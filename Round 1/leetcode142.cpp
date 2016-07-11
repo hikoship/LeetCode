@@ -1,6 +1,6 @@
 // Linked List Cycle II
 
-// Two pointers. The speed of one is two times of the other.
+// needs mathematical proof.
 
 // Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
 //
@@ -23,9 +23,16 @@ public:
         ListNode *p1 = head;
         ListNode *p2 = head;
         while (p1 != NULL && p1->next != NULL) {
-            p1 = p1->next;
+            p1 = p1->next->next;
+            p2 = p2->next;
+            if (p1 == p2) {
+                while (p1 != head) {
+                    p1 = p1->next;
+                    head = head->next;
+                }
+                return head;
+            }
         }
-
-
+        return NULL;
     }
 };
