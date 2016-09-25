@@ -1,6 +1,6 @@
 # Gas Station
 
-# Check subSum iteratively
+# Check subSum iteratively, or use two pointers to achieve O(1) running time.
 
 # There are N gas stations along a circular route, where the amount of gas at station i is gas[i].
 #
