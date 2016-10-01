@@ -1,6 +1,6 @@
 # 3Sum
 
-# TLE if using the method in Subset II.
+# TLE if using the method in Subset II. Princeton Algorithm I: sort and binary search
 
 # Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
 #
@@ -13,6 +13,26 @@
 #   [-1, 0, 1],
 #   [-1, -1, 2]
 # ]
+
+# sort and binary search
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        length = len(nums)
+        res = []
+        for i in range(length):
+            if i == 0 or  nums[i] != nums[i - 1]:
+                for j in range(i + 1, length):
+                    if j == i + 1 or  nums[j] != nums[j - 1]:
+                        if -(nums[i] + nums[j]) in nums[j + 1:]:
+                            res.append([nums[i], nums[j], -(nums[i] + nums[j])])
+        return res
+
+# !TLE
 class Solution(object):
     def threeSum(self, nums):
         """
