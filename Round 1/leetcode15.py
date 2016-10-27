@@ -14,6 +14,41 @@
 #   [-1, -1, 2]
 # ]
 
+# sort and two pointers
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        l = len(nums)
+        res = []
+        for i in range(l):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            start = i + 1
+            end = l - 1
+            while start < end:
+                if start > i + 1 and nums[start] == nums[start - 1]:
+                    start += 1
+                    continue
+                if end < l - 1 and nums[end] == nums[end + 1]:
+                    end -= 1
+                    continue
+                s = nums[i] + nums[start] + nums[end]
+                if s == 0:
+                    res.append([nums[i], nums[start], nums[end]])
+                    start += 1
+                    end -= 1
+                elif s > 0:
+                    end -= 1
+                else:
+                    start += 1
+        return res
+
+
+
 # sort and binary search
 class Solution(object):
     def threeSum(self, nums):
@@ -25,7 +60,7 @@ class Solution(object):
         length = len(nums)
         res = []
         for i in range(length):
-            if i == 0 or  nums[i] != nums[i - 1]:
+            if i == 0 or nums[i] != nums[i - 1]:
                 for j in range(i + 1, length):
                     if j == i + 1 or  nums[j] != nums[j - 1]:
                         if -(nums[i] + nums[j]) in nums[j + 1:]:
