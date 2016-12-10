@@ -35,7 +35,6 @@ class Solution(object):
             subPerm = self.dfs(nums[:i] + nums[i + 1:])
             # this part is slow
             for p in subPerm:
-                print p
                 perm.append([nums[i]] + p)
         return perm
 
@@ -57,4 +56,5 @@ class Solution(object):
         if l == 0:
             res.append(prev)
         for i in range(l):
-            subPerm = self.dfs(res, nums[:i] + nums[i + 1:], prev + nums[i])
+            subPerm = self.dfs(res, nums[:i] + nums[i + 1:], prev + [nums[i]])
+
