@@ -1,6 +1,6 @@
 # Two Sum
 
-#
+# use dict
 
 # Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 #
@@ -21,23 +21,10 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        l = len(nums)
-        sortedNums = nums[:]
-        sortedNums.sort()
-        a = 0
-        b = l - 1
-        while a <= b:
-            va = sortedNums[a]
-            vb = sortedNums[b]
-            if  va + vb == target:
-                x = nums.index(va)
-                if va == vb:
-                    y = nums[x + 1:].index(vb) + x + 1
-                else:
-                    y = nums.index(vb)
-                return [x, y]
-            elif va + vb < target:
-                a += 1
+        d = {}
+        for i in range(len(nums)):
+            if nums[i] in d:
+                return [d[nums[i]], i]
             else:
-                b -= 1
-        return
+                d[target - nums[i]] = i
+        return []
