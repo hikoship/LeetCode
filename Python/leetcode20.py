@@ -1,5 +1,27 @@
 # Valid Parentheses
 
+# stack
+
+# Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+#
+# The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        stack = []
+        valid = {'()', '[]', '{}'}
+        for c in s:
+            if c in ')]}':
+                if stack == [] or not stack.pop() + c in valid:
+                    return False
+            else:
+                stack.append(c)
+        return stack == []
+
 class Solution:
     # @param {string} s
     # @return {boolean}
