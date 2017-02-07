@@ -1,6 +1,7 @@
 # Subsets
 
-# use combinations
+# use combinations..
+# update: to appear or not to appear
 
 # Given a set of distinct integers, nums, return all possible subsets.
 #
@@ -20,6 +21,26 @@
 #   []
 # ]
 
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = [[]]
+        def f(i):
+            if i == len(nums):
+                return
+            f(i + 1)
+            # Wrong: res will grow forever
+            # for x in res:
+            #     res.append([nums[i]] + res)
+            for j in range(len(res)):
+                res.append([nums[i]] + res[j])
+        f(0)
+        return res
+
+# what the hell is this...
 class Solution(object):
     def subsets(self, nums):
         """
