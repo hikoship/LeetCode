@@ -27,8 +27,5 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        array = s.split()[::-1]
-        res = ''
-        for word in array:
-            res += word + ' '
-        return res[:-1]
+        words = s.split()
+        return ' '.join(words[::-1])
