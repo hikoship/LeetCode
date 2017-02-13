@@ -1,5 +1,42 @@
 # Subsets II
 
+# sort first
+
+# Given a collection of integers that might contain duplicates, nums, return all possible subsets.
+#
+# Note: The solution set must not contain duplicate subsets.
+#
+# For example,
+# If nums = [1,2,2], a solution is:
+#
+# [
+#   [2],
+#   [1],
+#   [1,2,2],
+#   [2,2],
+#   [1,2],
+#   []
+# ]
+
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        nums.sort()
+        self.dfs(res, nums, [], 0)
+        return res
+
+    def dfs(self, res, nums, prev, start):
+        res.append(list(prev))
+        for i in range(start, len(nums)):
+            if i == start or nums[i] > nums[i - 1]:
+                prev.append(nums[i])
+                self.dfs(res, nums, prev, i + 1)
+                prev.pop()
+
 # Similar to #78. sort first. query before insert.
 class Solution(object):
     def subsetsWithDup(self, nums):

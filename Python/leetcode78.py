@@ -28,17 +28,33 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         res = [[]]
-        def f(i):
-            if i == len(nums):
-                return
-            f(i + 1)
-            # Wrong: res will grow forever
-            # for x in res:
-            #     res.append([nums[i]] + res)
-            for j in range(len(res)):
-                res.append([nums[i]] + res[j])
-        f(0)
+        self.dfs(res, nums, 0)
         return res
+
+    def dfs(self, res, nums, start):
+        if start == len(nums):
+            return
+        self.dfs(res, nums, start + 1)
+        for i in range(len(res)):
+            res.append([nums[start]] + res[i])
+
+# backtracking
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        self.dfs(res, nums, [], 0)
+        return res
+
+    def dfs(self, res, nums, prev, start):
+        res.append(list(prev))
+        for i in range(start, len(nums)):
+            prev.append(nums[i])
+            self.dfs(res, nums, prev, i + 1)
+            prev.pop()
 
 # what the hell is this...
 class Solution(object):

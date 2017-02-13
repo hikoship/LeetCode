@@ -33,3 +33,30 @@ class Solution(object):
             nums[start], nums[end] = nums[end], nums[start]
             start += 1
             end -= 1
+
+# copy and O(n) space
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        l = len(nums)
+        tmp = nums[:]
+        for i in range(l):
+            nums[(i + k) % l] = tmp[i]
+
+# copy and O(n) space2
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        k %= len(nums)
+        l = len(nums)
+        tmp = nums[l - k :] + nums[: l - k]
+        for i in range(l):
+            nums[i] = tmp[i]

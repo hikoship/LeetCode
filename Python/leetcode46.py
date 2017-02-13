@@ -15,6 +15,30 @@
 #   [3,2,1]
 # ]
 
+# faster one without copying list
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        visited = [False] * len(nums)
+        self.dfs(res, nums, visited, [])
+        return res
+
+    def dfs(self, res, nums, visited, prev):
+        if len(prev) == len(nums):
+            res.append(list(prev)) # Wrong: use copy!
+            return
+        for i, n in enumerate(nums):
+            if not visited[i]:
+                visited[i] =True
+                prev.append(n)
+                self.dfs(res, nums, visited, prev)
+                prev.pop()
+                visited[i] = False
+
 # super slow
 class Solution(object):
     def permute(self, nums):
@@ -57,4 +81,3 @@ class Solution(object):
             res.append(prev)
         for i in range(l):
             subPerm = self.dfs(res, nums[:i] + nums[i + 1:], prev + [nums[i]])
-

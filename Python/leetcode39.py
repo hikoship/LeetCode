@@ -23,6 +23,29 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
+        res = []
+        self.dfs(res, candidates, target, [], 0)
+        return res
+
+    def dfs(self, res, candidates, target, prev, start):
+        if target == 0:
+            res.append(list(prev))
+            return
+        if target < 0:
+            return
+        for i in range(start, len(candidates)):
+            prev.append(candidates[i])
+            self.dfs(res, candidates, target - candidates[i], prev, i)
+            prev.pop()
+
+
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
         candidates.sort()
         return self.f(candidates, target, 0)
 
