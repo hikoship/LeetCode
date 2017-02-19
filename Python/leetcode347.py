@@ -1,6 +1,6 @@
 # Top K Frequent Elements
 
-# hash table 计数，反过来把次数排序
+# hash table; sort using lambda
 
 # Given a non-empty array of integers, return the k most frequent elements.
 #
@@ -10,6 +10,21 @@
 # Note:
 # You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
 # Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
+
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        d = {}
+        for n in nums:
+            if n in d:
+                d[n] += 1
+            else:
+                d[n] = 1
+        return [e for e in sorted(d, key=lambda x: d[x], reverse=True)][:k]
 
 class Solution(object):
     def topKFrequent(self, nums, k):

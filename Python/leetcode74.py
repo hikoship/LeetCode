@@ -24,31 +24,29 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        m = len(matrix)
-        n = len(matrix[0])
-        minRow = 0
-        maxRow = m - 1
-        minCol = 0
-        maxCol = n - 1
-        while maxRow >= minRow:
-            midRow = (minRow + maxRow) / 2
-            if matrix[midRow][0] <= target <= matrix[midRow][-1]:
-                break
-            elif target < matrix[midRow][0]:
-                maxRow = midRow - 1
-            elif target > matrix[midRow][-1]:
-                minRow = midRow + 1
-
-        if minRow > maxRow:
+        if matrix == [] or matrix == [[]]:
             return False
-
-        while maxCol >= minCol:
-            midCol = (minCol + maxCol) / 2
-            if target == matrix[midRow][midCol]:
+        lo = 0
+        hi = len(matrix) - 1
+        while lo <= hi:
+            mid = (lo + hi) / 2
+            if matrix[mid][-1] < target:
+                lo = mid + 1
+            elif matrix[mid][0] > target:
+                hi = mid - 1
+            else:
+                break
+        if lo > hi:
+            return False
+        row = matrix[mid]
+        lo = 0
+        hi = len(row) - 1
+        while lo <= hi:
+            mid = (lo + hi) / 2
+            if row[mid] < target:
+                lo = mid + 1
+            elif row[mid] > target:
+                hi = mid - 1
+            else:
                 return True
-            elif target < matrix[midRow][midCol]:
-                maxCol = midCol - 1
-            elif target > matrix[midRow][midCol]:
-                minCol = midCol + 1
-
         return False

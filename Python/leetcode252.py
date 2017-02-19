@@ -1,6 +1,6 @@
 # Meeting Rooms
 
-# sort. intervals.sort(key = operator.attrgetter('start'))
+# sort
 
 # Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), determine if a person could attend all meetings.
 #
@@ -20,8 +20,8 @@ class Solution(object):
         :type intervals: List[Interval]
         :rtype: bool
         """
-        intervals.sort(key = operator.attrgetter('start'))
-        for i in range(len(intervals)):
-            if i < len(intervals) - 1 and intervals[i].end > intervals[i + 1].start:
+        intervals.sort(key = lambda interval: interval.end)
+        for i in range(1, len(intervals)):
+            if intervals[i].start < intervals[i - 1].end:
                 return False
         return True

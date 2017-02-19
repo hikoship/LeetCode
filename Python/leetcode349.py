@@ -12,6 +12,22 @@
 # The result can be in any order.
 
 class Solution(object):
+    def intersection(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        res = set()
+        s = set()
+        for n in nums1:
+            s.add(n)
+        for n in nums2:
+            if n in s:
+                res.add(n)
+        return list(res)
+
+class Solution(object):
     def intersect(self, nums1, nums2):
         """
         :type nums1: List[int]
