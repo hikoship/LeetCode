@@ -11,6 +11,7 @@
 # You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
 # Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 
+# bucket sort
 class Solution(object):
     def topKFrequent(self, nums, k):
         """
@@ -24,8 +25,34 @@ class Solution(object):
                 d[n] += 1
             else:
                 d[n] = 1
-        return [e for e in sorted(d, key=lambda x: d[x], reverse=True)][:k]
+        bucket = [[] for _ in range(len(nums))]
+        for n in d:
+            bucket[d[n] - 1].append(n)
+        res = []
+        for i in range(len(nums) - 1, -1, -1):
+            res += bucket[i]
+        return res[:k]
 
+
+
+
+# O(nlogn)
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        d = {}
+        for n in nums:
+            if n in d:
+                d[n] += 1
+            else:
+                d[n] = 1
+        return sorted(d, key=lambda x: d[x], reverse=True)[:k]
+
+# wtf is it..
 class Solution(object):
     def topKFrequent(self, nums, k):
         """

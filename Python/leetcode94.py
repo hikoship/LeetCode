@@ -1,11 +1,6 @@
 # Binary Tree Inorder Traversal
 
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+# stack
 
 # Given a binary tree, return the inorder traversal of its nodes' values.
 #
@@ -20,6 +15,34 @@
 #
 # Note: Recursive solution is trivial, could you do it iteratively?
 
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+# iterative
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        cur = root
+        res = []
+        stack = []
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop()
+            res.append(cur.val)
+            cur = cur.right
+        return res
+
+# recursive
 class Solution(object):
     def inorderTraversal(self, root):
         """

@@ -14,6 +14,44 @@
 #   [-1, -1, 2]
 # ]
 
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        res = []
+        visited = [False] * len(nums)
+        self.NSum(nums, 0, visited, 0, 3, res, [])
+        return res
+
+    def NSum(self, nums, start, visited, target, N, res, prev):
+        if N < 2 or N > len(nums):
+            return
+        if N == 2:
+            # two sum
+            s = set()
+            dup = set()
+            for i in range(start, len(nums)):
+                if target - nums[i] in s and not nums[i] in dup:
+                    res.append(prev + [target - nums[i], nums[i]])
+                    dup.add(nums[i])
+                else:
+                    s.add(nums[i])
+        else:
+            # reduce NSum to (N-1)Sum
+            for i in range(start, len(nums)):
+                if N * nums[i] > target or N * nums[-1] < target:
+                    break
+                if not visited[i] and (i == 0 or nums[i] != nums[i - 1] or visited[i - 1]):
+                    # remove duplicates
+                    visited[i] = True
+                    self.NSum(nums, i + 1, visited, target - nums[i], N - 1, res, prev + [nums[i]])
+                    visited[i] = False
+
+
 # sort and two pointers
 class Solution(object):
     def threeSum(self, nums):
@@ -67,6 +105,7 @@ class Solution(object):
                             res.append([nums[i], nums[j], -(nums[i] + nums[j])])
         return res
 
+# WTF???
 # !TLE
 class Solution(object):
     def threeSum(self, nums):
