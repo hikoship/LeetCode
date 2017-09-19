@@ -1,8 +1,52 @@
 # Longest Palindromic Substring
 
 # Use index to record string, not string itself.
+# new: use a helper to return longest string with center of i
 
-# Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.
+# Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+#
+# Example:
+#
+# Input: "babad"
+#
+# Output: "bab"
+#
+# Note: "aba" is also a valid answer.
+# Example:
+#
+# Input: "cbbd"
+#
+# Output: "bb"
+
+# new
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        res = ''
+        for i in range(len(s)):
+            tmp = self.helper(s, i, i)
+            if len(tmp) > len(res):
+                res = tmp
+            tmp = self.helper(s, i, i + 1)
+            if len(tmp) > len(res):
+                res = tmp
+        return res
+
+    def helper(self, s, left, right):
+        while left >= 0 and right < len(s):
+            if s[left] == s[right]:
+                left -= 1
+                right += 1
+            else:
+                break
+        return s[left + 1 : right]
+
+
+
+
 
 class Solution(object):
     def longestPalindrome(self, s):

@@ -15,6 +15,45 @@
 # Credits:
 # Special thanks to @pbrother for adding this problem and creating all test cases.
 
+# DP O(n^2)
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # Denote length(i) as the length of LIS ending with ai.
+        # Denote prev(i) as the previous index of ai in the LIS.
+        # Denote max as the index of the last element of LIS.
+        if nums == []:
+            return 0
+        n = len(nums)
+        length = [1] * n
+        prev = [-1] * n
+        maxIndex = 0
+
+        for i in range(n):
+            for j in range(i):
+                if nums[j] < nums[i] and length[i] < length[j] + 1:
+                    length[i] = length[j] + 1
+                    prev[i] = j
+                    if length[i] > length[maxIndex]:
+                        maxIndex = i
+        return length[maxIndex]
+
+        # if you wan to return the content of LIS:
+        # result = []
+        # i = maxIndex
+        # print length[maxIndex]
+        # while prev[i] != -1:
+        #     result.append(a[i])
+        #     i = prev[i]
+        # result.append(a[i])
+        # return result[::-1]
+
+
+
+# O(nlogn) binary search
 class Solution(object):
     def lengthOfLIS(self, nums):
         """
