@@ -42,6 +42,27 @@ class Solution(object):
             cur = cur.right
         return res
 
+
+# faster recursive
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        self.helper(res, root)
+        return res
+
+
+    def helper(self, res, root):
+        if root is None:
+            return
+        self.helper(res, root.left)
+        res.append(root.val)
+        self.helper(res, root.right)
+
+
 # recursive
 class Solution(object):
     def inorderTraversal(self, root):

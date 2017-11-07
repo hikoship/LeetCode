@@ -1,6 +1,7 @@
 # Longest Increasing Subsequence
 
 # Thanks to Sam Fu.
+# or binary search: the array records smallest tails of sequences of length i
 
 # Given an unsorted array of integers, find the length of longest increasing subsequence.
 #
@@ -14,6 +15,7 @@
 #
 # Credits:
 # Special thanks to @pbrother for adding this problem and creating all test cases.
+
 
 # DP O(n^2)
 class Solution(object):
@@ -51,32 +53,25 @@ class Solution(object):
         # result.append(a[i])
         # return result[::-1]
 
-
-
-# O(nlogn) binary search
+# binary search: O(nlogn)
 class Solution(object):
     def lengthOfLIS(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        if len(nums) == 0:
-            return 0
         res = []
-        for e in nums:
-            if len(res) > 0 and e > res[-1]:
-                res.append(e)
-                continue
-            left = 0
-            right = len(res) - 1
-            while (left < right):
-                mid = (left + right) / 2
-                if e == res[mid]:
-                    left = mid
-                    break
-                elif e < res[mid]:
-                    right = mid
-                else:
-                    left = mid + 1
-            res[left] = e
+        for x in nums:
+            if len(res) == 0 or x > res[-1]:
+                res.append(x)
+            else:
+                left = 0
+                right = len(res) - 1
+                while left < right:
+                    mid = (left + right) / 2
+                    if x <= res[mid]:
+                        right = mid
+                    else:
+                        left = mid + 1
+                res[left] = x
         return len(res)

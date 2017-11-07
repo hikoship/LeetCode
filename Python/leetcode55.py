@@ -1,7 +1,7 @@
 # Jump Game
 
 # maintain the farthest element that has been visited instead of visited[].
-# The former costs O(n) but the former is O(n^2).
+# The former costs O(n) but the latter is O(n^2).
 # AFTER
 
 # Given an array of non-negative integers, you are initially positioned at the first index of the array.
@@ -21,22 +21,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        length = len(nums)
-        if length < 2:
-            return True
-        farthest = 0
-        stack = [0]
-        while len(stack) > 0:
-            tmp = stack.pop()
-            for i in range(tmp + nums[tmp], farthest, -1):
-                if i >= length - 1:
-                    return True
-                stack.append(i)
-            if tmp + nums[tmp] > farthest:
-                farthest = tmp + nums[tmp]
-        return False
+        reach = 0
+        for i in range(len(nums)):
+            if i > reach:
+                return False
+            reach = max(reach, i + nums[i])
+        return True
 
-
+# altinative
 class Solution(object):
     def canJump(self, nums):
         """

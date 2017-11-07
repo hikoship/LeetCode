@@ -1,17 +1,20 @@
 # Maximum Depth of Binary Tree
 
+# recursive is easy
+
 # Definition for a binary tree node.
-# class TreeNode:
+# class TreeNode(object):
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
 
-class Solution:
-    # @param {TreeNode} root
-    # @return {integer}
+class Solution(object):
     def maxDepth(self, root):
-        if root is None:
-            return 0
-        else:
-            return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        return 0 if root is None else max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+
+            

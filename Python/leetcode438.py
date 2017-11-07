@@ -32,6 +32,54 @@
 # The substring with start index = 1 is "ba", which is an anagram of "ab".
 # The substring with start index = 2 is "ab", which is an anagram of "ab".
 
+class Solution(object):
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        if len(s) < len(p):
+            return []
+        res = []
+        chars = {}
+        diffCount = 0
+        for x in range(ord('a'), ord('z') + 1):
+            chars[chr(x)] = 0
+        for c in p:
+            if chars[c] == 0:
+                diffCount += 1
+            chars[c] -= 1
+        for i in range(len(p)):
+            if chars[s[i]] == 0:
+                diffCount += 1
+            chars[s[i]] += 1
+            if chars[s[i]] == 0:
+                diffCount -= 1
+        if diffCount == 0:
+            res.append(0)
+
+        for i in range(len(s) - len(p)):
+            # remove first char
+            if chars[s[i]] == 0:
+                diffCount += 1
+            chars[s[i]] -= 1
+            if chars[s[i]] == 0:
+                diffCount -= 1
+            # add new char
+            if chars[s[i + len(p)]] == 0:
+                diffCount += 1
+            chars[s[i + len(p)]] += 1
+            if chars[s[i + len(p)]] == 0:
+                diffCount -= 1
+            if diffCount == 0:
+                # WRONG: res.append(i + len(p))
+                # WRONG: res.append(i)
+                res.append(i + 1)
+        return res
+
+
+
 # O(n)
 class Solution(object):
     def findAnagrams(self, s, p):

@@ -17,6 +17,52 @@
 #   [-2,  0, 0, 2]
 # ]
 
+
+# concise kSum
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        return self.kSum(nums, 4, 0, target)
+
+
+    def kSum(self, nums, k, start, target):
+        if k == 2:
+            return self.twoSum(nums, start, target)
+        res = []
+        i = start
+        while i < len(nums):
+            # WRONG: for subArr in self.kSum(nums, k - 1, i, target - nums[i]):
+            for subArr in self.kSum(nums, k - 1, i + 1, target - nums[i]):
+                res.append([nums[i]] + subArr)
+            i += 1
+            while i < len(nums) and nums[i] == nums[i - 1]:
+                i += 1
+        return res
+
+
+    def twoSum(self, nums, start, target):
+        res = []
+        s = set()
+        i = start
+        while i < len(nums):
+            # WRONG: if nums[i] in s:
+            if target - nums[i] in s:
+                res.append([target - nums[i], nums[i]])
+                i += 1
+                while i < len(nums) and nums[i] == nums[i - 1]:
+                    i += 1
+            else:
+                s.add(nums[i])
+                i += 1
+        return res
+
+
+
 class Solution(object):
     def fourSum(self, nums, target):
         """

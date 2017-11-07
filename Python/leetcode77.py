@@ -23,6 +23,33 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
+        res = []
+        self.helper(res, n, k, [], 1)
+        return res
+
+    def helper(self, res, n, k, prev, start):
+        if n - start + 1 < k - len(prev):
+            # remaining numbers < numbers needed
+            return
+        if len(prev) == k:
+            res.append(list(prev))
+            return
+        for i in range(start, n + 1):
+            prev.append(i)
+            self.helper(res, n, k, prev, i + 1)
+            prev.pop()
+
+
+
+
+
+class Solution(object):
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
         a = range(1, k + 1)
         res = []
         while True:

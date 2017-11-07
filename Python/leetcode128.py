@@ -1,6 +1,6 @@
 # Longest Consecutive Sequence
 
-# hash; hash + union-find; set
+# hash; hash + union-find; set; two hash map
 
 # First turn the input into a set of numbers. That takes O(n) and then we can ask in O(1) whether we have a certain number.
 #
@@ -16,6 +16,16 @@
 #                 y += 1
 #             best = max(best, y - x)
 #     return best
+
+
+# Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+#
+# For example,
+# Given [100, 4, 200, 1, 3, 2],
+# The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
+#
+# Your algorithm should run in O(n) complexity.
+
 
 # solution of @StefanPochmann
 class Solution(object):
@@ -35,6 +45,46 @@ class Solution(object):
                 res = max(res, l)
         return res
 
+
+
+# my O(n) solution
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        length = {}
+        pair = {}
+        res = 0
+        for n in nums:
+            if n in length:
+                continue
+            if n - 1 in length and n + 1 in length:
+                left = pair[n - 1]
+                right = pair[n + 1]
+                pair[left] = right
+                pair[right] = left
+                length[n] = length[n - 1] + length[n + 1] + 1
+                length[left] = length[n]
+                length[right] = length[n]
+            elif n - 1 in length:
+                length[n] = length[n - 1] + 1
+                left = pair[n - 1]
+                pair[n] = left
+                pair[left] = n
+                length[left] = length[n]
+            elif n + 1 in length:
+                length[n] = length[n + 1] + 1
+                right = pair[n + 1]
+                pair[n] = right
+                pair[right] = n
+                length[right] = length[n]
+            else:
+                length[n] = 1
+                pair[n] = n
+            res = max(res, length[n])
+        return res
 
 
 

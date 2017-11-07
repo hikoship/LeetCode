@@ -10,6 +10,30 @@
 #         self.val = x
 #         self.next = None
 
+
+# no need no create new nodes
+class Solution(object):
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        import heapq
+        h = []
+        resPtr = ListNode(0)
+        cur = resPtr
+        for l in lists:
+            if l:
+                h.append((l.val, l))
+        heapq.heapify(h)
+        while h:
+            cur.next = heapq.heappop(h)[1]
+            cur = cur.next
+            if cur.next:
+                heapq.heappush(h, (cur.next.val, cur.next))
+        return resPtr.next
+
+
 class Solution(object):
     def mergeKLists(self, lists):
         """

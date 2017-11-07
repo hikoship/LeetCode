@@ -30,10 +30,33 @@ class Solution(object):
             bucket[d[n] - 1].append(n)
         res = []
         for i in range(len(nums) - 1, -1, -1):
-            res += bucket[i]
-        return res[:k]
+            for x in bucket[i]:
+                res.append(x)
+                if len(res) == k:
+                    return res
 
 
+# heap: O(n + klogn)
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        import heapq
+        count = {}
+        res = []
+        for x in nums:
+            if x in count:
+                count[x] += 1
+            else:
+                count[x] = 1
+        heap = [(-count[x], x) for x in count]
+        heapq.heapify(heap)
+        for _ in range(k):
+            res.append(heapq.heappop(heap)[1])
+        return res
 
 
 # O(nlogn)
