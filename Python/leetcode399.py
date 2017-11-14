@@ -7,41 +7,46 @@ class Solution(object):
         :rtype: List[float]
         """
         graph = {}
-        for e, v in zip(equations, values):
-            s, t = e
+        cache = {}
+        for (s, t), v in zip(equations, values):
             if s not in graph:
                 graph[s] = {}
             if t not in graph:
                 graph[t] = {}
             graph[s][t] = v
+            cache[(s, t)] = v
+            graph[t][s] = 1.0 / v
+            cache[(t, s)] = 1.0 / v
         res = []
-        cache = {}
         for s, t in queries:
-            res.append(self.helper(graph, cache, s, t))
+            res.append(self.helper(graph, cache, s, t, set()))
         return res
 
 
-    def helper(self, graph, cache, s, t):
+    def helper(self, graph, cache, s, t, visited):
+        removeFlag = False
         if (s, t) in cache:
             return cache[(s, t)]
         if s not in graph or t not in graph:
             cache[(s, t)] = -1.0
         elif s == t:
             cache[(s, t)] = 1.0
-        # WRONG: this should be moved to the bottom
-        # elif len(graph[s]) == 0:
-        #     cache[(s, t)] = -1.0
         else:
+            visited.add(s)
             for neighbor in graph[s]:
-                # WRONG: tmp = self.helper(graph, cache, s, t)
-                tmp = self.helper(graph, cache, neighbor, t)
+                if neighbor in visited:
+                    removeFlag = True
+                    continue
+                tmp = self.helper(graph, cache, neighbor, t, visited)
                 if tmp > -1:
                     cache[(s, t)] = tmp * graph[s][neighbor]
                     break
-            if (s, t) not in cache:
-                # WRONG: cache[(s, t)] = 1 / self.helper(graph, cache, t, s)
-                # WRONG: cache[(s, t)] = 1 / self.helper(graph, cache, t, neighbor)
-                # WRONG: cache[(s, t)] = 1.0 / self.helper(graph, cache, t, neighbor)
-                cache[(s, t)] = graph[s][neighbor] / self.helper(graph, cache, t, neighbor)
-        cache[[(t, s)]] = cache[(s, t)]
+            visited.remove(s)
+        if (s, t) not in cache:
+            cache[(s, t)] = -1.0
+        cache[(t, s)] = 1.0 / cache[(s, t)]
+        if removeFlag and cache[(s, t)] == -1.0:
+            del cache[(s, t)]
+            del cache[(t, s)]
+            return -1
         return cache[(s, t)]

@@ -26,6 +26,19 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
+        minIn = float('inf')
+        maxDiff = 0
+        for p in prices:
+            minIn = min(minIn, p)
+            maxDiff = max(maxDiff, p - minIn)
+        return maxDiff
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
         if prices == []:
             return 0
         res = 0

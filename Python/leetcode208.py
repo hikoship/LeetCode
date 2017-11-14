@@ -1,15 +1,16 @@
 # Implement Trie (Prefix Tree)
 
-# collections.defaultdict improves performance
+# two memebers: children[26] and isWord
 
-# Codes in comments lead to TLE
-class Node(object):
+# Implement a trie with insert, search, and startsWith methods.
+#
+# Note:
+# You may assume that all inputs are consist of lowercase letters a-z.
+
+class TrieNode(object):
     def __init__(self):
-        self.children = collections.defaultdict(Node)
+        self.children = [None] * 26
         self.isWord = False
-        # self.children = {}
-        # for i in range(ord('a'), ord('z') + 1):
-        #     self.children[chr(i)] = None
 
 class Trie(object):
 
@@ -17,7 +18,8 @@ class Trie(object):
         """
         Initialize your data structure here.
         """
-        self.root = Node()
+        self.root = TrieNode()
+
 
     def insert(self, word):
         """
@@ -27,10 +29,12 @@ class Trie(object):
         """
         node = self.root
         for c in word:
-            # if node.children[c] is None:
-            #     node.children[c] = Node()
-            node = node.children[c]
+            index = ord(c) - ord('a')
+            if node.children[index] is None:
+                node.children[index] = TrieNode()
+            node = node.children[index]
         node.isWord = True
+
 
     def search(self, word):
         """
@@ -40,8 +44,8 @@ class Trie(object):
         """
         node = self.root
         for c in word:
-            node = node.children.get(c)
-            # WRONG: if node.children is None:
+            index = ord(c) - ord('a')
+            node = node.children[index]
             if node is None:
                 return False
         return node.isWord
@@ -54,8 +58,8 @@ class Trie(object):
         """
         node = self.root
         for c in prefix:
-            node = node.children.get(c)
-            # WRONG: if node.children is None:
+            index = ord(c) - ord('a')
+            node = node.children[index]
             if node is None:
                 return False
         return True

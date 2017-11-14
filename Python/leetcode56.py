@@ -16,16 +16,11 @@ class Solution(object):
         """
         if intervals == []:
             return []
-        res = []
-        intervals.sort(key = operator.attrgetter('start'))
-        start = intervals[0].start
-        end = intervals[0].end
+        intervals.sort(key=lambda x: x.start)
+        res = [Interval(intervals[0].start, intervals[0].end)]
         for i in intervals:
-            if i.start <= end:
-                end = max(end, i.end)
+            if i.start <= res[-1].end:
+                res[-1].end = max(res[-1].end, i.end)
             else:
-                res.append([start, end])
-                start = i.start
-                end = i.end
-        res.append([start, end])
+                res.append(Interval(i.start, i.end))
         return res

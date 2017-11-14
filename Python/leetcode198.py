@@ -6,6 +6,22 @@
 #
 # Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
 
+# O(n) + O(1) @tusizi
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        prevNo = 0
+        prevYes = 0
+        for n in nums:
+            temp = prevNo
+            prevNo = max(prevNo, prevYes)
+            prevYes = temp + n
+        return max(prevNo, prevYes)
+
+
 class Solution(object):
     def rob(self, nums):
         """

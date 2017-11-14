@@ -14,6 +14,31 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        if nums == []:
+            return 0
+        if len(nums) == 1:
+            return nums[0]
+        return max(self.helper(nums[1:]), self.helper(nums[:-1]))
+
+
+    def helper(self, nums):
+        prevNo = 0
+        prevYes = 0
+        for n in nums:
+            temp = prevNo
+            prevNo = max(prevNo, prevYes)
+            prevYes = temp + n
+        return max(prevNo, prevYes)
+
+
+
+
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
         if len(nums) == 1:
             return nums[0]
         return max(self.f(nums[1:]), self.f(nums[:-1]))
