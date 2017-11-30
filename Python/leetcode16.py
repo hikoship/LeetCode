@@ -8,6 +8,55 @@
 #
 #     The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 
+# using k-sum
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort()
+        return self.kSum(nums, 3, 0, target)
+
+
+    def kSum(self, nums, k, start, target):
+        if k == 2:
+            return self.twoSum(nums, start, target)
+        res = float('inf')
+        i = start
+        while i < len(nums):
+            # WRONG: for subArr in self.kSum(nums, k - 1, i, target - nums[i]):
+            tmp = self.kSum(nums, k - 1, i + 1, target - nums[i]) + nums[i]
+            if tmp == target:
+                return tmp
+            if abs(tmp - target) < abs(res - target):
+                res = tmp
+            i += 1
+            while i < len(nums) and nums[i] == nums[i - 1]:
+                i += 1
+        return res
+
+
+    def twoSum(self, nums, start, target):
+        res = float('inf')
+        s = set()
+        i = start
+        j = len(nums) - 1
+        while i < j:
+            tmp = nums[i] + nums[j]
+            if tmp == target:
+                return target
+            if abs(tmp - target) < abs(res - target):
+                res = tmp
+            if tmp < target:
+                i += 1
+            else:
+                j -= 1
+        return res
+
+
+
 class Solution(object):
     def threeSumClosest(self, nums, target):
         """

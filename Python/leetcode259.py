@@ -1,3 +1,18 @@
+# 3Sum Smaller
+
+# similar to k-sum, use res = end - start when nums[end] + nums[start] < target
+
+# Given an array of n integers nums and a target, find the number of index triplets i, j, k with 0 <= i < j < k < n that satisfy the condition nums[i] + nums[j] + nums[k] < target.
+#
+# For example, given nums = [-2, 0, 1, 3], and target = 2.
+#
+# Return 2. Because there are two triplets which sums are less than 2:
+#
+# [-2, 0, 1]
+# [-2, 0, 3]
+# Follow up:
+# Could you solve it in O(n2) runtime?
+
 class Solution(object):
     def threeSumSmaller(self, nums, target):
         """
@@ -5,25 +20,28 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
+        if len(nums) < 3:
+            return 0
         nums.sort()
-        res = []
-        visited = [False] * len(nums)
-        self.NSum(nums, 0, visited, 0, 3, res, [])
+        return self.kSum(nums, 3, 0, target)
+
+
+    def kSum(self, nums, k, start, target):
+        if k == 2:
+            return self.twoSum(nums, start, target)
+        res = 0
+        for i in range(start, len(nums)):
+            res += self.kSum(nums, k - 1, i + 1, target - nums[i])
         return res
 
-    def NSum(self, nums, start, visited, target, N, res, prev):
-        if N < 2 or N > len(nums):
-            return
-        if N == 2:
-            # two sum
-            
-        else:
-            # reduce NSum to (N-1)Sum
-            for i in range(start, len(nums)):
-                if N * nums[i] > target or N * nums[-1] < target:
-                    break
-                if not visited[i] and (i == 0 or nums[i] != nums[i - 1] or visited[i - 1]):
-                    # remove duplicates
-                    visited[i] = True
-                    self.NSum(nums, i + 1, visited, target - nums[i], N - 1, res, prev + [nums[i]])
-                    visited[i] = False
+
+    def twoSum(self, nums, start, target):
+        res = 0
+        end = len(nums) - 1
+        while start < end:
+            if nums[start] + nums[end] < target:
+                res += end - start
+                start += 1
+            else:
+                end -= 1
+        return res

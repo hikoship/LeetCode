@@ -18,6 +18,28 @@
 #
 # Output: "bb"
 
+
+# dp but slow
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        l = len(s)
+        if l < 1:
+            return s;
+        dp = [[False] * len(s) for _ in s]
+        res = '';
+        dp[l - 1][l - 1] = True
+        for i in range(l - 2, -1, -1):
+            for j in range(i + 1, l):
+                if s[i] == s[j] and (j < i + 3 or dp[i + 1][j - 1]):
+                    dp[i][j] = True
+                    if j - i - 1 > len(res):
+                        res = s[i: j + 1]
+        return maxSub;
+
 # new
 class Solution(object):
     def longestPalindrome(self, s):
@@ -27,12 +49,12 @@ class Solution(object):
         """
         res = ''
         for i in range(len(s)):
-            tmp = self.helper(s, i, i)
-            if len(tmp) > len(res):
-                res = tmp
-            tmp = self.helper(s, i, i + 1)
-            if len(tmp) > len(res):
-                res = tmp
+            left, right = self.helper(s, i, i)
+            if right - left > len(res):
+                res = s[left: right]
+            left, right = self.helper(s, i, i + 1)
+            if right - left > len(res):
+                res = s[left: right]
         return res
 
     def helper(self, s, left, right):
@@ -42,7 +64,7 @@ class Solution(object):
                 right += 1
             else:
                 break
-        return s[left + 1 : right]
+        return left + 1, right
 
 
 

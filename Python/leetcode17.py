@@ -11,6 +11,38 @@
 # Note:
 # Although the above answer is in lexicographical order, your answer could be in any order you want.
 
+# concise!
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        chars = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+        res = []
+        self.dfs(res, chars, digits, 0, [])
+
+    def dfs(self, res, chars, digits, start, prev):
+        if start == len(digits):
+            res.append(''.join(prev))
+            return
+        for c in chars[digits[start]]:
+            prev.append(c)
+            self.dfs(res, chars, digits, start + 1, prev)
+            prev.pop()
+
+
+
+
 class Solution(object):
     def letterCombinations(self, digits):
         """

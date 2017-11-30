@@ -17,11 +17,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if nums == []:
-            return 0
-        k = 1
-        for i in range(1, len(nums)):
-            if nums[i] != nums[i - 1]:
-                nums[k] = nums[i]
-                k += 1
-        return k
+        length = 0
+        for n in nums:
+            if length == 0 or n != nums[length - 1]:
+                nums[length] = n
+                length += 1
+        return length

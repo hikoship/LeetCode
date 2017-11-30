@@ -14,6 +14,33 @@
 #   "()()()"
 # ]
 
+# recursion is easy
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        res = []
+        self.dfs(res, 0, 0, n, [])
+        return res
+
+    def dfs(self, res, left, right, n, prev):
+        if left == n and right == n:
+            res.append(''.join(prev))
+            return
+        if left < n:
+            prev.append('(')
+            self.dfs(res, left + 1, right, n, prev)
+            prev.pop()
+        if left > right:
+            prev.append(')')
+            self.dfs(res, left, right + 1, n, prev)
+            prev.pop()
+
+
+
+
 class Solution(object):
     def generateParenthesis(self, n):
         """

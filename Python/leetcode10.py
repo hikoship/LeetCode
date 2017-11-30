@@ -34,23 +34,19 @@ class Solution(object):
         M = len(s)
         N = len(p)
         res = [[False] * (N + 1) for _ in range(M + 1)]
-        res[0][0] = True
-        for j in range(1, N + 1):
-            if p[j - 1] == '*':
-                res[0][j] = True
-            else:
+        for j in range(1, N, 2):
+            if p[j] != '*':
                 break
+            res[0][j + 1] = True
+        res[0][0] = True
         for i in range(1, M + 1):
             for j in range(1, N + 1):
                 if p[j - 1] == '*':
-                    if j - 1 == 0 or p[j - 2] == '*':
-                        # invalid
-                        return False
-                    else:
-                        res[i][j] = res[i][j - 2] or res[i - 1][j] and (s[i - 1] == p[j - 2] or p[j - 2] == '.')
+                    res[i][j] = res[i][j - 2] or res[i - 1][j] and (s[i - 1] == p[j - 2] or p[j - 2] == '.')
                 else:
                     res[i][j] = res[i - 1][j - 1] and (s[i - 1] == p[j - 1] or p[j - 1] == '.')
         return res[M][N]
+
 
 
 # can merge '.' and 'abc...'; unnecessary to judge res[i][j - 1]
