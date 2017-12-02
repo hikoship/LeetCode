@@ -24,9 +24,9 @@ class Solution(object):
             return root
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
-        if left is not None and right is not None:
+        if left and right:
             return root
-        return left is right is None else right
+        return left if left else right
 
 
 

@@ -1,6 +1,8 @@
 # Decode String
 
-# recursive
+# similar to lc224 calculator?
+# [: nums.append(curNum); strs.append(curStr)
+# ]: curStr = strs.pop() + curStr * nums.pop()
 
 # Given an encoded string, return it's decoded string.
 #
@@ -22,32 +24,20 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        return self.f(s, 0, len(s) - 1)
-
-    def f(self, s, start, end):
-        res = ''
-        while start <= end:
-            if '0' <= s[start] <= '9':
-                num = 0
-                while '0' <= s[start] <= '9':
-                    num = 10 * num + int(s[start])
-                    start += 1
-
-            elif 'a' <= s[start] <= 'z':
-                res += s[start]
-                start +=    1
-
-            elif s[start] == '[':
-                i = start + 1
-                count = 1
-                while True:
-                    if s[i] == '[':
-                        count += 1
-                    elif s[i] == ']':
-                        count -= 1
-                        if count == 0:
-                            break
-                    i += 1
-                res += num * self.f(s, start + 1, i - 1)
-                start = i + 1
-        return res
+        nums = []
+        strs = []
+        curNum = 0
+        curStr = []
+        for c in s:
+            if ord('0') <= ord(c) <= ord('9'):
+                curNum = 10 * curNum + int(c)
+            elif c == '[':
+                nums.append(curNum)
+                strs.append(curStr)
+                curNum = 0
+                curStr = []
+            elif c == ']':
+                curStr = strs.pop() + curStr * nums.pop()
+            else:
+                curStr.append(c)
+        return ''.join(curStr)
