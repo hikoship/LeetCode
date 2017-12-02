@@ -13,6 +13,31 @@
 # 3,2,1 → 1,2,3
 # 1,1,5 → 1,5,1
 
+# optimization: use reverse() instead of sorted()
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        for i in range(len(nums) - 1, 0, -1):
+            if nums[i] > nums[i - 1]:
+                self.reverse(nums, i, len(nums) - 1)
+                j = i
+                while nums[j] <= nums[i - 1]: # <= instead of < in order to handle arrays like [1,1,5]
+                    j += 1
+                nums[i - 1], nums[j] = nums[j], nums[i - 1]
+                return
+            i -= 1
+        nums.reverse()
+
+    def reverse(self, nums, left, right):
+        while left < right:
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+            right -= 1
+
+
 class Solution(object):
     def nextPermutation(self, nums):
         """

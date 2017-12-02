@@ -1,6 +1,22 @@
 # Rotate Image
 
-#
+# first loop:
+# xxxoxxx
+# xxxoxxx
+# xxxoxxx
+# ooooooo
+# xxxoxxx
+# xxxoxxx
+# xxxoxxx
+# second loop:
+# oooxooo
+# oooxooo
+# oooxooo
+# xxxxxxx
+# oooxooo
+# oooxooo
+# oooxooo
+# oooxooo
 
 # You are given an n x n 2D matrix representing an image.
 #

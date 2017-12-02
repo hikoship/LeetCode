@@ -18,11 +18,12 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        sums = list(nums)
-        for i in range(1, len(nums)):
-            if sums[i - 1] > 0:
-                sums[i] += sums[i - 1]
-        return max(sums)
+        res = nums[0]
+        curMax = 0
+        for n in nums:
+            curMax = max(curMax + n, n)
+            res = max(curMax, res)
+        return res
 
 class Solution(object):
     def maxSubArray(self, nums):
@@ -30,9 +31,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        maxAll = nums[0]
-        maxHere = 0
-        for n in nums:
-            maxHere = max(maxHere + n, n)
-            maxAll = max(maxHere, maxAll)
-        return maxAll
+        sums = list(nums)
+        for i in range(1, len(nums)):
+            if sums[i - 1] > 0:
+                sums[i] += sums[i - 1]
+        return max(sums)

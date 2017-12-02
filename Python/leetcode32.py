@@ -16,14 +16,17 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        res = [0] * len(s)
+        dp = [0] * len(s)
+        res = 0
         for i in range(1, len(s)):
-            leftIdx = i - res[i - 1] - 1 # the substring between leftIdx and i is a valid pair string
+            leftIdx = i - dp[i - 1] - 1 # the substring between leftIdx and i is a valid pair string
             if s[i] == ')' and leftIdx >= 0 and s[leftIdx] == '(':
-                res[i] = res[i - 1] + 2
-                if i >= res[i]:
-                    res[i] += res[i - res[i]] # concatenate
-        return max(res) if s else 0
+                dp[i] = dp[i - 1] + 2
+                if i >= dp[i]:
+                    dp[i] += dp[i - dp[i]] # concatenate
+                res = max(res, dp[i])
+        return res
+    
 
 # stack
 class Solution(object):

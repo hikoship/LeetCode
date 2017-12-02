@@ -21,6 +21,8 @@
 # isMatch("ab", "?*") → true
 # isMatch("aab", "c*a*b") → false
 
+
+
 class Solution(object):
     def isMatch(self, s, p):
         """
@@ -33,10 +35,9 @@ class Solution(object):
         res = [[False] * (N + 1) for _ in range(M + 1)]
         res[0][0] = True
         for j in range(1, N + 1):
-            if p[j - 1] == '*':
-                res[0][j] = True
-            else:
+            if p[j - 1] != '*':
                 break
+            res[0][j] = True
         for i in range(1, M + 1):
             for j in range(1, N + 1):
                 if p[j - 1] == '*':

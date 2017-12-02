@@ -48,7 +48,7 @@ class Solution(object):
         :type k: int
         :rtype: str
         """
-        res = ''
+        res = 0
         nums = range(1, n + 1)
         fac = [1]
         for i in range(1, 10):
@@ -57,8 +57,8 @@ class Solution(object):
         while n > 0:
             i = (k - 1) / fac[n - 1]
             tmp = nums[i]
-            res += str(tmp)
+            res = 10 * res + tmp
             nums.remove(tmp)
             n -= 1
             k -= fac[n] * i
-        return res
+        return str(res)

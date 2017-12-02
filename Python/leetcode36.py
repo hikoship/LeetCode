@@ -24,7 +24,7 @@ class Solution(object):
                 if val == '.':
                     continue
                 if val in row[i]:
-                    return False
+                return False
                 row[i].add(val)
                 if val in col[j]:
                     return False

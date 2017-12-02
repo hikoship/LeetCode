@@ -21,43 +21,41 @@ class Solution(object):
         """
         if words == []:
             return []
-        res = []
-        length = len(words[0])
         count = {}
         for w in words:
-            if w in count:
-                count[w] += 1
-            else:
-                count[w] = 1
-        for offset in range(length):
-            tmp = {}
+            if w not in count:
+                count[w] = 0
+            count[w] += 1
+        wordLen = len(words[0])
+        res = []
+        for offset in range(wordLen):
+            curCount = {}
             start = offset
             added = 0
-            for i in range(offset, len(s), length):
-                subStr = s[i : i + length]
+            for i in range(offset, len(s), wordLen):
+                subStr = s[i : i + wordLen]
                 if subStr in count:
                     added += 1
-                    if subStr in tmp:
-                        tmp[subStr] += 1
-                    else:
-                        tmp[subStr] = 1
-                    while tmp[subStr] > count[subStr]:
+                    if subStr not in curCount:
+                        curCount[subStr] = 0
+                    curCount[subStr] += 1
+                    while curCount[subStr] > count[subStr]:
                         # move left window
-                        # WRONG: tmp[start : start + length] -= 1
-                        tmp[s[start : start + length]] -= 1
+                        # WRONG: curCount[start : start + wordLen] -= 1
+                        curCount[s[start : start + wordLen]] -= 1
                         added -= 1
-                        start += length
+                        start += wordLen
                     if added == len(words):
                         res.append(start)
                 else:
                     # invalid word
-                    tmp = {}
-                    start = i + length
+                    curCount = {}
+                    start = i + wordLen
                     added = 0
         return res
 
 
-# my slow solution
+# TLE
 class Solution(object):
     def findSubstring(self, s, words):
         """
@@ -65,28 +63,24 @@ class Solution(object):
         :type words: List[str]
         :rtype: List[int]
         """
-        if words == []:
-            return []
-        res = []
-        length = len(words[0])
         count = {}
         for w in words:
-            if w in count:
-                count[w] += 1
-            else:
-                count[w] = 1
-        for i in range(len(s) - length * len(words) + 1):
-            tmp = {}
-            flag = True
-            for j in range(len(words)):
-                subStr = s[i + j * length: i + j * length + length]
-                if subStr in tmp:
-                    tmp[subStr] += 1
-                else:
-                    tmp[subStr] = 1
-                if not (subStr in count and tmp[subStr] <= count[subStr]):
-                    flag = False
+            if w not in count:
+                count[w] = 0
+            count[w] += 1
+        wordLen = len(words[0])
+        res = []
+        for i in range(len(s)):
+            curCount = {}
+            added = 0
+            for w in words:
+                curCount[w] = 0
+            for j in range(i, len(s), wordLen):
+                subStr = s[j: j + wordLen]
+                if subStr not in count or curCount[subStr] == count[subStr]:
                     break
-            if flag:
-                res.append(i)
+                curCount[subStr] += 1
+                added += 1
+                if added == len(words):
+                    res.append(i)
         return res
