@@ -20,6 +20,20 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
+        b0, b1 = float('-inf'), float('-inf') # buy[i], buy[i - 1]
+        s0, s1, s2 = 0, 0, 0 # sell[0], sell[1], sell[2]
+        for p in prices:
+            b0 = max(b1, s2 - p)
+            s0 = max(s1, b1 + p)
+            b1, s1, s2 = b0, s0, s1
+        return s0
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
         # status 0: cooldown. next: s0 / s1
         # status 1: hold. next: s1 / s2
         # status 2: sell. next: s0

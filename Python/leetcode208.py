@@ -1,16 +1,11 @@
 # Implement Trie (Prefix Tree)
 
-# two memebers: children[26] and isWord
+# map; use '#' for word
 
 # Implement a trie with insert, search, and startsWith methods.
 #
 # Note:
 # You may assume that all inputs are consist of lowercase letters a-z.
-
-class TrieNode(object):
-    def __init__(self):
-        self.children = [None] * 26
-        self.isWord = False
 
 class Trie(object):
 
@@ -18,8 +13,7 @@ class Trie(object):
         """
         Initialize your data structure here.
         """
-        self.root = TrieNode()
-
+        self.root = {}
 
     def insert(self, word):
         """
@@ -27,13 +21,12 @@ class Trie(object):
         :type word: str
         :rtype: void
         """
-        node = self.root
+        cur = self.root
         for c in word:
-            index = ord(c) - ord('a')
-            if node.children[index] is None:
-                node.children[index] = TrieNode()
-            node = node.children[index]
-        node.isWord = True
+            if c not in cur:
+                cur[c] = {}
+            cur = cur[c]
+        cur['#'] = word
 
 
     def search(self, word):
@@ -42,13 +35,13 @@ class Trie(object):
         :type word: str
         :rtype: bool
         """
-        node = self.root
+        cur = self.root
         for c in word:
-            index = ord(c) - ord('a')
-            node = node.children[index]
-            if node is None:
+            if c not in cur:
                 return False
-        return node.isWord
+            cur = cur[c]
+        return '#' in cur
+
 
     def startsWith(self, prefix):
         """
@@ -56,13 +49,14 @@ class Trie(object):
         :type prefix: str
         :rtype: bool
         """
-        node = self.root
+        cur = self.root
         for c in prefix:
-            index = ord(c) - ord('a')
-            node = node.children[index]
-            if node is None:
+            if c not in cur:
                 return False
+            cur = cur[c]
         return True
+
+
 
 # Your Trie object will be instantiated and called as such:
 # obj = Trie()

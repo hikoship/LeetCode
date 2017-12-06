@@ -1,11 +1,14 @@
+# Palindrome Partitioning
+
+# backtracking
 
 # Given a string s, partition s such that every substring of the partition is a palindrome.
-# 
+#
 # Return all possible palindrome partitioning of s.
-# 
+#
 # For example, given s = "aab",
 # Return
-# 
+#
 # [
 #   ["aa","b"],
 #   ["a","a","b"]
@@ -17,18 +20,24 @@ class Solution(object):
         :type s: str
         :rtype: List[List[str]]
         """
-        d = {}
-        d[-1] = [[]]
-        for i in range(len(s)):
-            d[i] = []
-            for j in range(i + 1):
-                if self.isPalindrome(s[j : i + 1]):
-                    for x in d[j - 1]:
-                        d[i].append(x + [s[j : i + 1]])
-        return d[len(s) - 1]
+        res = []
+        self.dfs(s, res, 0, [])
+        return res
 
-    def isPalindrome(self, s):
-        for i in range(len(s) / 2):
-            if s[i] != s[-1 - i]:
+    def dfs(self, s, res, start, prev):
+        if start == len(s):
+            res.append(list(prev))
+            return
+        for i in range(start, len(s)):
+            if self.isPalindrome(s, start, i):
+                prev.append(s[start : i + 1])
+                self.dfs(s, res, i + 1, prev)
+                prev.pop()
+
+    def isPalindrome(self, s, i, j):
+        while i < j:
+            if s[i] != s[j]:
                 return False
+            i += 1
+            j -= 1
         return True

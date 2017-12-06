@@ -50,19 +50,17 @@ class Solution(object):
         """
         parent = {}
         size = {}
-        lands = set()
         dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         count = 0
         res = []
         for p in positions:
             count += 1
             p = tuple(p)
-            lands.add(p)
             parent[p] = p
             size[p] = 1
             for d in dirs:
                 neighbor = (p[0] + d[0], p[1] + d[1])
-                if neighbor in lands:
+                if neighbor in parent:
                     count -= self.union(parent, size, p, neighbor)
             res.append(count)
         return res

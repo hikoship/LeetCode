@@ -33,6 +33,7 @@ class Solution(object):
         cur = root
         res = []
         stack = []
+        # or: while True:
         while cur or stack:
             while cur:
                 stack.append(cur)

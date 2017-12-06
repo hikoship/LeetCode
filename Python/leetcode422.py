@@ -1,6 +1,7 @@
 # Valid Word Square
 
-# can it be solved in one loop?
+# if j >= len(words) or i >= len(words[j]) or words[i][j] != words[j][i]:
+#     return False
 
 # Given a sequence of words, check whether it forms a valid word square.
 #
@@ -68,7 +69,6 @@
 #
 # Therefore, it is NOT a valid word square.
 
-# slow two-loop solution
 class Solution(object):
     def validWordSquare(self, words):
         """
