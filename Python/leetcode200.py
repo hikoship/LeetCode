@@ -28,34 +28,29 @@ class Solution(object):
         """
         if grid == []:
             return 0
-        rowNum = len(grid)
-        colNum = len(grid[0])
+        M = len(grid)
+        N = len(grid[0])
         res = 0
-        visited = [[False] * colNum for _ in range(rowNum)]
-        for i in range(rowNum):
-            for j in range(colNum):
+        visited = [[False] * N for _ in range(M)]
+        for i in range(M):
+            for j in range(N):
                 if grid[i][j] == '1' and not visited[i][j]:
-                    self.dfs(grid, visited, i, j)
+                    self.dfs(grid, visited, M, N, i, j)
                     res += 1
         return res
 
-    def dfs(self, grid, visited, i, j):
-        rowNum = len(grid)
-        colNum = len(grid[0])
+    def dfs(self, grid, visited, M, N, i, j):
         stack = [(i, j)]
+        visited[i][j] = True
+        dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         while stack:
             p = stack.pop()
-            x = p[0]
-            y = p[1]
-            visited[x][y] = True
-            if x > 0 and grid[x - 1][y] == '1' and not visited[x - 1][y]:
-                stack.append((x - 1, y))
-            if x < rowNum - 1 and grid[x + 1][y] == '1' and not visited[x + 1][y]:
-                stack.append((x + 1, y))
-            if y > 0 and grid[x][y - 1] == '1' and not visited[x][y - 1]:
-                stack.append((x, y - 1))
-            if y < colNum - 1 and grid[x][y + 1] == '1' and not visited[x][y + 1]:
-                stack.append((x, y + 1))
+            for d in dirs:
+                x = p[0] + d[0]
+                y = p[1] + d[1]
+                if 0 <= x < M and 0 <= y < N and grid[x][y] == '1' and not visited[x][y]:
+                    stack.append((x, y))
+                    visited[x][y] = True
 
 
 
